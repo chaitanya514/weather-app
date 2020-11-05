@@ -16,8 +16,10 @@ class App extends React.Component {
   controllerSignal = this.abortController.signal;
 
   getWeatherData = () => {
-    const weatherApi = 'http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=f7e7395da34f297d325355616a297568';
-
+    
+   console.log("api",process.env.REACT_APP_WEATHER_KEY)
+    const weatherApi = `http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`;
+   
     fetch(weatherApi, { signal: this.controllerSignal })
       .then(response => response.json())
       .then((result) => {
@@ -61,6 +63,7 @@ class App extends React.Component {
     this.getWeatherData();
   }
   componentWillUnmount(){
+    
     this.abortController.abort();
   }
 
